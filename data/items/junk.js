@@ -8,7 +8,7 @@ export const junk = [
     value: 0.5,
     weight: 0.1,
     slot: 'junk',
-    image: '/images/items/junk_01.png',
+    image: '/images/items/junk/junk_01.png',
   },
   {
     id: 'junk_02',
@@ -17,7 +17,7 @@ export const junk = [
     value: 0.3,
     weight: 0.05,
     slot: 'junk',
-    image: '/images/items/junk_02.png',
+    image: '/images/items/junk/junk_02.png',
   },
   {
     id: 'junk_03',
@@ -26,7 +26,7 @@ export const junk = [
     value: 0.2,
     weight: 0.05,
     slot: 'junk',
-    image: '/images/items/junk_03.png',
+    image: '/images/items/junk/junk_03.png',
   },
   {
     id: 'junk_04',
@@ -35,7 +35,7 @@ export const junk = [
     value: 0.4,
     weight: 0.03,
     slot: 'junk',
-    image: '/images/items/junk_04.png',
+    image: '/images/items/junk/junk_04.png',
   },
   {
     id: 'junk_05',
@@ -44,7 +44,7 @@ export const junk = [
     value: 0.2,
     weight: 0.01,
     slot: 'junk',
-    image: '/images/items/junk_05.png',
+    image: '/images/items/junk/junk_05.png',
   },
   {
     id: 'junk_06',
@@ -53,7 +53,7 @@ export const junk = [
     value: 1.0,
     weight: 0.15,
     slot: 'junk',
-    image: '/images/items/junk_06.png',
+    image: '/images/items/junk/junk_06.png',
   },
   {
     id: 'junk_07',
@@ -62,7 +62,7 @@ export const junk = [
     value: 0.2,
     weight: 0.01,
     slot: 'junk',
-    image: '/images/items/junk_07.png',
+    image: '/images/items/junk/junk_07.png',
   },
   {
     id: 'junk_08',
@@ -71,7 +71,7 @@ export const junk = [
     value: 0.3,
     weight: 0.02,
     slot: 'junk',
-    image: '/images/items/junk_08.png',
+    image: '/images/items/junk/junk_08.png',
   },
   {
     id: 'junk_09',
@@ -80,7 +80,7 @@ export const junk = [
     value: 0.2,
     weight: 0.01,
     slot: 'junk',
-    image: '/images/items/junk_09.png',
+    image: '/images/items/junk/junk_09.png',
   },
   {
     id: 'junk_10',
@@ -89,7 +89,7 @@ export const junk = [
     value: 0.6,
     weight: 0.3,
     slot: 'junk',
-    image: '/images/items/junk_10.png',
+    image: '/images/items/junk/junk_10.png',
   },
   {
     id: 'junk_11',
@@ -98,7 +98,7 @@ export const junk = [
     value: 0.8,
     weight: 0.1,
     slot: 'junk',
-    image: '/images/items/junk_11.png',
+    image: '/images/items/junk/junk_11.png',
   },
   {
     id: 'junk_12',
@@ -107,7 +107,7 @@ export const junk = [
     value: 1.2,
     weight: 0.25,
     slot: 'junk',
-    image: '/images/items/junk_12.png',
+    image: '/images/items/junk/junk_12.png',
   },
   {
     id: 'junk_13',
@@ -116,7 +116,7 @@ export const junk = [
     value: 0.3,
     weight: 0.4,
     slot: 'junk',
-    image: '/images/items/junk_13.png',
+    image: '/images/items/junk/junk_13.png',
   },
   {
     id: 'junk_14',
@@ -125,7 +125,7 @@ export const junk = [
     value: 0.2,
     weight: 0.01,
     slot: 'junk',
-    image: '/images/items/junk_14.png',
+    image: '/images/items/junk/junk_14.png',
   },
   {
     id: 'junk_15',
@@ -134,7 +134,7 @@ export const junk = [
     value: 0.7,
     weight: 0.02,
     slot: 'junk',
-    image: '/images/items/junk_15.png',
+    image: '/images/items/junk/junk_15.png',
   },
   {
     id: 'junk_16',
@@ -143,7 +143,7 @@ export const junk = [
     value: 1.0,
     weight: 0.2,
     slot: 'junk',
-    image: '/images/items/junk_16.png',
+    image: '/images/items/junk/junk_16.png',
   },
   {
     id: 'junk_17',
@@ -152,7 +152,7 @@ export const junk = [
     value: 2.0,
     weight: 0.6,
     slot: 'junk',
-    image: '/images/items/junk_17.png',
+    image: '/images/items/junk/junk_17.png',
   },
   {
     id: 'junk_18',
@@ -161,7 +161,7 @@ export const junk = [
     value: 0.5,
     weight: 0.01,
     slot: 'junk',
-    image: '/images/items/junk_18.png',
+    image: '/images/items/junk/junk_18.png',
   },
   {
     id: 'junk_19',
@@ -170,7 +170,7 @@ export const junk = [
     value: 0.2,
     weight: 0.01,
     slot: 'junk',
-    image: '/images/items/junk_19.png',
+    image: '/images/items/junk/junk_19.png',
   },
   {
     id: 'junk_20',
@@ -179,7 +179,7 @@ export const junk = [
     value: 3.0,
     weight: 0.1,
     slot: 'junk',
-    image: '/images/items/junk_20.png',
+    image: '/images/items/junk/junk_20.png',
   },
 ];
 export default junk;
