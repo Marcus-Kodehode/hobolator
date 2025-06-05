@@ -1,44 +1,60 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useState } from 'react';
-import HUD from '../../../components/ui/HUD.jsx';
+import HUD from '../../../components/ui/HUD';
+import IntroModal from './components/IntroModal';
+import HoboCampMenu from '../../../components/menus/HoboCampMenu';
+import HitTheStreetsModal from './components/HitTheStreetsModal';
 
 export default function HomePage() {
-  const [timeSegment, setTimeSegment] = useState(1); // 1–4
-  const backgroundImage = `/images/backgrounds/city1${timeSegment <= 2 ? '' : 'n'}.png`;
+  const [day, setDay] = useState(1);
+  const [showStreetModal, setShowStreetModal] = useState(false);
+
+  // 🧠 Hent dag fra localStorage når komponenten mountes
+  useEffect(() => {
+    const savedDay = parseInt(localStorage.getItem('playerDay') || '1');
+    setDay(savedDay);
+  }, []);
+
+  // 🕹 Funksjon for å øke dagen
+  const handleNextDay = () => {
+    const newDay = day + 1;
+    setDay(newDay);
+    localStorage.setItem('playerDay', newDay.toString());
+  };
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      {/* Background */}
       <Image
-        src={backgroundImage}
+        src="/images/backgrounds/city1.png" // 📷 Kun ett bilde brukes
         alt="City background"
         fill
         priority
         className="object-cover"
       />
 
-      {/* HUD */}
       <HUD
         health={80}
         stamina={55}
         hygiene={30}
         cash={4.75}
         scrap={6}
-        dayCount={1}
-        timeSegment={timeSegment}
+        dayCount={day}
+        timeSegment={1} // Kan evt. fjernes helt fra HUD-komponenten
       />
 
-      {/* Main content */}
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-white">
-        <h1 className="mb-4 text-3xl font-bold text-orange-400 drop-shadow">
-          Welcome to the Shantytown
-        </h1>
-        <p className="max-w-md text-sm text-center text-orange-100">
-          You’re standing in the middle of a worn-down trailer park — the perfect place to start your legendary hobo journey.
-        </p>
-      </div>
+      <IntroModal />
+      <HoboCampMenu onStreetsClick={() => setShowStreetModal(true)} />
+      
+      {showStreetModal && (
+        <HitTheStreetsModal
+          onClose={() => {
+            setShowStreetModal(false);
+            handleNextDay(); // 👈 Gå til neste dag etter modalen lukkes
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { getItemById } from './items';
+import { updateWeightStat } from './playerStats'; // 👈 Importér funksjonen
 
 const STORAGE_KEY = 'playerInventory';
 
-// Hent spillerens inventory (med full item-info)
 export function getPlayerInventory() {
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) return [];
@@ -16,7 +16,6 @@ export function getPlayerInventory() {
     .filter(Boolean);
 }
 
-// Legg til item
 export function addItemToInventory(id, amount = 1) {
   const existing = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   const index = existing.findIndex(item => item.id === id);
@@ -28,9 +27,9 @@ export function addItemToInventory(id, amount = 1) {
   }
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
+  updateWeightStat(); // ✅ OPPDATER VEKT
 }
 
-// Fjern item (kan være nyttig senere)
 export function removeItemFromInventory(id, amount = 1) {
   let existing = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   existing = existing.map(item => {
@@ -41,9 +40,10 @@ export function removeItemFromInventory(id, amount = 1) {
   }).filter(item => item.quantity > 0);
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
+  updateWeightStat(); // ✅ OPPDATER VEKT
 }
 
-// Sett helt nytt inventory (f.eks. ved start)
 export function setInventory(items) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  updateWeightStat(); // ✅ OPPDATER VEKT
 }

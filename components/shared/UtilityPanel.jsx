@@ -9,8 +9,8 @@ export default function UtilityPanel({ onHelp, onCheat, onInventory, onCharacter
       <div className="grid grid-cols-2 gap-2">
         <TooltipButton icon={FaUser} label="Character" onClick={onCharacter} />
         <TooltipButton icon={FaShoppingCart} label="Inventory" onClick={onInventory} />
-        <TooltipButton icon={FaMagic} label="Cheat" onClick={onCheat} />
-        <TooltipButton icon={FaQuestion} label="Help" onClick={onHelp} />
+        <TooltipButton icon={FaMagic} label="Cheat" onClick={onCheat} position="bottom" />
+        <TooltipButton icon={FaQuestion} label="Help" onClick={onHelp} position="bottom" />
       </div>
     </div>
   );

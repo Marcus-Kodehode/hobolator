@@ -1,6 +1,8 @@
 'use client';
 
-export default function TooltipButton({ icon: Icon, label, onClick }) {
+export default function TooltipButton({ icon: Icon, label, onClick, position = 'top' }) {
+  const isBottom = position === 'bottom';
+
   return (
     <div className="relative group">
       <button
@@ -9,7 +11,11 @@ export default function TooltipButton({ icon: Icon, label, onClick }) {
       >
         <Icon size={18} />
       </button>
-      <span className="absolute z-50 px-2 py-1 mb-1 text-xs text-orange-100 transition-opacity duration-300 transform -translate-x-1/2 bg-black border border-orange-400 rounded shadow opacity-0 left-1/2 bottom-full group-hover:opacity-100 whitespace-nowrap">
+
+      <span
+        className={`absolute z-50 px-2 py-1 text-xs text-orange-100 transition-opacity duration-300 transform -translate-x-1/2 bg-black border border-orange-400 rounded shadow opacity-0 left-1/2 whitespace-nowrap
+        ${isBottom ? 'top-full mt-1' : 'bottom-full mb-1'} group-hover:opacity-100`}
+      >
         {label}
       </span>
     </div>

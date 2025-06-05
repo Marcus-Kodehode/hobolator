@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaTimes } from 'react-icons/fa';
 import allItems from '../../data/items';
+import { addItemToInventory } from '../../data/playerInventory'; // ✅ riktig import
 import LoadingScreen from '../ui/LoadingScreen';
 
 export default function CheatModal({ onClose }) {
@@ -12,8 +13,9 @@ export default function CheatModal({ onClose }) {
 
   const [amount, setAmount] = useState(1);
   const [itemId, setItemId] = useState('');
-  const [loading, setLoading] = useState(false); // 👈 for loading screen
+  const [loading, setLoading] = useState(false);
 
+  // ✅ Lukk modal ved klikk utenfor eller Escape
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) onClose();
@@ -29,57 +31,50 @@ export default function CheatModal({ onClose }) {
     };
   }, [onClose]);
 
+  // ✅ Legg til stats (brukes til penger, junk osv.)
   const updateStat = (key, change) => {
     const current = parseInt(localStorage.getItem(key) || '0');
     localStorage.setItem(key, current + change);
-    window.location.reload();
+    window.dispatchEvent(new Event('playerStatsChanged')); // 👈 Trigg oppdatering i UI
   };
 
+  // ✅ Endre dag (pluss/minus)
   const changeDay = (amount) => {
     const current = parseInt(localStorage.getItem('playerDay') || '1');
     const updated = Math.max(1, current + amount);
     localStorage.setItem('playerDay', updated);
-    window.location.reload();
+    window.dispatchEvent(new Event('playerStatsChanged')); // 👈 Trigg oppdatering
   };
 
-const restartGame = () => {
-  setLoading(true);
+  // ✅ Tilbakestill spillet (brukes ved restart)
+  const restartGame = () => {
+    setLoading(true);
+    setTimeout(() => {
+      localStorage.clear();
 
-  setTimeout(() => {
-    localStorage.clear();
+      localStorage.setItem('playerHealth', '100');
+      localStorage.setItem('playerStamina', '100');
+      localStorage.setItem('playerHygiene', '100');
+      localStorage.setItem('playerMoney', '0');
+      localStorage.setItem('playerJunk', '0');
+      localStorage.setItem('playerDay', '1');
+      localStorage.setItem('playerTimeSegment', '1');
 
-    localStorage.setItem('playerHealth', '100');
-    localStorage.setItem('playerStamina', '100');
-    localStorage.setItem('playerHygiene', '100');
-    localStorage.setItem('playerMoney', '0');
-    localStorage.setItem('playerJunk', '0');
-    localStorage.setItem('playerDay', '1');
-    localStorage.setItem('playerTimeSegment', '1');
+      const starterItems = [
+        { id: 'weapon_01', quantity: 1 },
+        { id: 'consumable_07', quantity: 1 },
+        { id: 'consumable_01', quantity: 1 }
+      ];
+      localStorage.setItem('playerInventory', JSON.stringify(starterItems));
 
-    const starterItems = [
-      { id: 'weapon_01', quantity: 1 },
-      { id: 'consumable_07', quantity: 1 },
-      { id: 'consumable_01', quantity: 1 }
-    ];
-    localStorage.setItem('playerInventory', JSON.stringify(starterItems));
+      router.push('/screen/start');
+    }, 2000);
+  };
 
-    router.push('/screen/start');
-  }, 2000);
-};
-
+  // ✅ Riktig måte å legge til item på – bruker systemet ditt!
   const spawnItem = () => {
     if (!itemId) return;
-    const inventory = JSON.parse(localStorage.getItem('playerInventory')) || [];
-    const index = inventory.findIndex(item => item.id === itemId);
-
-    if (index !== -1) {
-      inventory[index].quantity += amount;
-    } else {
-      inventory.push({ id: itemId, quantity: amount });
-    }
-
-    localStorage.setItem('playerInventory', JSON.stringify(inventory));
-    window.location.reload();
+    addItemToInventory(itemId, amount); // 👈 ENKEL OG RIKTIG
   };
 
   return (
@@ -96,10 +91,12 @@ const restartGame = () => {
           </div>
 
           <div className="space-y-4 text-sm">
+            {/* 🔁 Restart */}
             <button onClick={restartGame} className="w-full px-3 py-2 font-semibold text-white bg-red-600 rounded hover:bg-red-500">
               🧨 Restart Game
             </button>
 
+            {/* 💰 Money */}
             <div>
               <p className="font-semibold text-orange-200">💰 Add Money</p>
               <div className="flex gap-2 mt-1">
@@ -111,6 +108,7 @@ const restartGame = () => {
               </div>
             </div>
 
+            {/* 🛠 Junk */}
             <div>
               <p className="font-semibold text-orange-200">🛠 Add Junk</p>
               <div className="flex gap-2 mt-1">
@@ -122,6 +120,7 @@ const restartGame = () => {
               </div>
             </div>
 
+            {/* 📆 Day Control */}
             <div>
               <p className="font-semibold text-orange-200">📆 Day Control</p>
               <div className="flex gap-2 mt-1">
@@ -130,6 +129,7 @@ const restartGame = () => {
               </div>
             </div>
 
+            {/* 📦 Spawn Item */}
             <div className="p-3 mt-2 rounded bg-zinc-800/90">
               <p className="mb-1 font-semibold text-orange-200">📦 Spawn Item</p>
               <select value={itemId} onChange={(e) => setItemId(e.target.value)} className="w-full px-2 py-1 mb-2 text-sm text-black rounded">

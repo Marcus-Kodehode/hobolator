@@ -27,6 +27,9 @@ export default function StartPage() {
       localStorage.setItem('playerHealth', '100');
       localStorage.setItem('playerStamina', '100');
       localStorage.setItem('playerHygiene', '100');
+      localStorage.setItem('playerMaxWeight', '10');
+      localStorage.setItem('playerCurrentWeight', '0');
+
 
       // Økonomi
       localStorage.setItem('playerMoney', '0');

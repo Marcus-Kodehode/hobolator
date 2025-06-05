@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { getItemById } from '../../data/items';
 import { usePlayerStats } from '../../data/playerStats';
+import { updateWeightStat } from '../../data/playerStats';
 import { FaTimes } from 'react-icons/fa';
 import ItemCard from './ItemCard';
 import ItemModal from './ItemModal';
@@ -23,6 +24,7 @@ export default function InventoryPanel({ onClose }) {
       }).filter(Boolean);
       setItems(resolved);
     }
+    updateWeightStat(); // 👈 Legg til dette her
   }, []);
 
   const handleUse = (item) => {
@@ -40,6 +42,8 @@ export default function InventoryPanel({ onClose }) {
 
     localStorage.setItem('playerInventory', JSON.stringify(updated));
     setItems(updated);
+    updateWeightStat(); // ✅ oppdater vekten
+
 
     // Vis bekreftelsesmelding
     const effectText = Object.entries(item.effects)
