@@ -13,11 +13,13 @@ const crimeBadEvents = [
   },
   {
     description: 'Someone ratted you out. You lost what little you had.',
-    effects: { scrap: -2 },
+    effects: {},
+    scrap: -2,
   },
   {
     description: 'You got mugged while trying to mug someone else.',
-    effects: { health: -6, money: -3.0 },
+    effects: { health: -6 },
+    money: -3.0,
   },
 ];
 

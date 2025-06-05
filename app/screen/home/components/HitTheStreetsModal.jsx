@@ -7,22 +7,20 @@ import { getRandomBegEvent } from '../../../../data/quests/beg/getRandomBegEvent
 import { getRandomWanderEvent } from '../../../../data/quests/wander/getRandomWanderEvent';
 import { getRandomCrimeEvent } from '../../../../data/quests/crime/getRandomCrimeEvent';
 
-
 export default function HitTheStreetsModal({ onClose }) {
   const [result, setResult] = useState(null);
   const [hasChosen, setHasChosen] = useState(false);
 
-    const handleAction = async (actionType) => {
+  const handleAction = async (actionType) => {
     setHasChosen(true);
 
     let event;
-
     if (actionType === 'beg') {
-        event = getRandomBegEvent();
+      event = getRandomBegEvent();
     } else if (actionType === 'wander') {
-        event = getRandomWanderEvent();
+      event = getRandomWanderEvent();
     } else if (actionType === 'crime') {
-        event = getRandomCrimeEvent();
+      event = getRandomCrimeEvent();
     }
 
     if (!event) return;
@@ -31,7 +29,7 @@ export default function HitTheStreetsModal({ onClose }) {
     const time = parseInt(localStorage.getItem('playerTimeSegment') || '1');
     localStorage.setItem('playerTimeSegment', Math.min(time + 1, 4).toString());
     setResult(event);
-    };
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/80 backdrop-blur-sm">
@@ -71,14 +69,17 @@ export default function HitTheStreetsModal({ onClose }) {
             </p>
 
             <div className="mb-4 space-y-1 text-xs text-zinc-300">
-              {Object.entries(result.effects).map(([key, val]) => (
+              {result.effects && Object.entries(result.effects).map(([key, val]) => (
                 <div key={key}>
-                  {key === 'items'
-                    ? `📦 Found item(s): ${val.join(', ')}`
-                    : `${key.charAt(0).toUpperCase() + key.slice(1)}: ${val > 0 ? '+' : ''}${val}`}
+                  {key === 'items' && `📦 Found item(s): ${val.join(', ')}`}
+                  {key === 'money' && `💵 Money: ${val > 0 ? '+' : ''}$${val.toFixed(2)}`}
+                  {key === 'scrap' && `🛠 Scrap: ${val > 0 ? '+' : ''}${val}`}
+                  {key !== 'items' && key !== 'money' && key !== 'scrap' &&
+                    `${key.charAt(0).toUpperCase() + key.slice(1)}: ${val > 0 ? '+' : ''}${val}`}
                 </div>
               ))}
             </div>
+
 
             <button
               onClick={onClose}
