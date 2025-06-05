@@ -13,7 +13,7 @@ export default function HoboCampMenu({ onStreetsClick }) {
     },
     {
       id: 'trade-items',
-      label: 'Trade Items',
+      label: 'Trash for Treasure',
       image: '/images/areas/junktrader.png',
       icon: '💰',
       onClick: () => console.log('Trade Items'),
