@@ -1,29 +1,34 @@
+// GOOD EVENTS
 const crimeGoodEvents = [
   {
+    id: 'crime-good-01',
     description: 'You snatched a wallet and escaped unnoticed.',
-    effects: { stamina: -2 },
-    money: 7.5,
+    image: '/images/events/crime-wallet.png',
+    effects: { money: 2.5, stamina: -5 },
   },
   {
+    id: 'crime-good-02',
     description: 'You found a bag of scrap behind a pawn shop.',
-    effects: { hygiene: -1 },
-    scrap: 4,
+    image: '/images/events/crime-scrap.png',
+    effects: { scrap: 5, hygiene: -2 },
   },
   {
+    id: 'crime-good-03',
     description: 'You tricked someone into giving you a few bucks.',
-    effects: {},
-    money: 3.0,
+    image: '/images/events/crime-trick.png',
+    effects: { money: 3.0 },
   },
   {
+    id: 'crime-good-04',
     description: 'You lifted some batteries from a convenience store.',
-    effects: { hygiene: -2 },
-    items: ['batteries'],
+    image: '/images/events/crime-batteries.png',
+    effects: { hygiene: -2, items: ['junk_10'] },
   },
   {
+    id: 'crime-good-05',
     description: 'You raided a broken vending machine for loot.',
-    effects: {},
-    items: ['cans'],
-    scrap: 2,
+    image: '/images/events/crime-vending.png',
+    effects: { scrap: 2, items: ['junk_01','consumable_03'] },
   },
 ];
 
