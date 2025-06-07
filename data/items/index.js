@@ -2,15 +2,18 @@ import equipment from './equipment';
 import consumables from './consumables';
 import junk from './junk';
 
-
-const allItems = [
-  ...equipment,
-  ...consumables,
-  ...junk,
-];
-
-export const getItemById = (id) => {
-  return allItems.find(item => item.id === id);
+// Lag en variabel først:
+const allItems = {
+  equipment,
+  consumables,
+  junk,
 };
 
+// Funksjon for å hente item by id:
+export const getItemById = (id) => {
+  const all = [...equipment, ...consumables, ...junk];
+  return all.find(item => item.id === id);
+};
+
+// Eksporter samlet:
 export default allItems;

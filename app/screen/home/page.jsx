@@ -6,10 +6,14 @@ import HUD from '../../../components/ui/HUD';
 import IntroModal from './components/IntroModal';
 import HoboCampMenu from '../../../components/menus/HoboCampMenu';
 import HitTheStreetsModal from './components/HitTheStreetsModal';
+import ScrapShopModal from './scrapshop/components/ScrapShopModal';
+import TreasureShopModal from './treasure/components/TreasureShopModal';
 
 export default function HomePage() {
   const [day, setDay] = useState(1);
   const [showStreetModal, setShowStreetModal] = useState(false);
+  const [showScrapModal, setShowScrapModal] = useState(false);
+  const [showTreasureModal, setShowTreasureModal] = useState(false);
 
   // 🧠 Hent dag fra localStorage når komponenten mountes
   useEffect(() => {
@@ -27,7 +31,7 @@ export default function HomePage() {
   return (
     <div className="relative w-full h-screen overflow-hidden">
       <Image
-        src="/images/backgrounds/city1.png" // 📷 Kun ett bilde brukes
+        src="/images/backgrounds/city1.png"
         alt="City background"
         fill
         priority
@@ -41,17 +45,40 @@ export default function HomePage() {
         cash={4.75}
         scrap={6}
         dayCount={day}
-        timeSegment={1} // Kan evt. fjernes helt fra HUD-komponenten
+        timeSegment={1}
       />
 
       <IntroModal />
-      <HoboCampMenu onStreetsClick={() => setShowStreetModal(true)} />
-      
+
+      <HoboCampMenu
+        onStreetsClick={() => setShowStreetModal(true)}
+        onScrapShopClick={() => setShowScrapModal(true)}
+        onTreasureShopClick={() => setShowTreasureModal(true)}
+      />
+
       {showStreetModal && (
         <HitTheStreetsModal
           onClose={() => {
             setShowStreetModal(false);
-            handleNextDay(); // 👈 Gå til neste dag etter modalen lukkes
+            handleNextDay();
+          }}
+        />
+      )}
+
+      {showScrapModal && (
+        <ScrapShopModal
+          onClose={() => {
+            setShowScrapModal(false);
+            handleNextDay();
+          }}
+        />
+      )}
+
+      {showTreasureModal && (
+        <TreasureShopModal
+          onClose={() => {
+            setShowTreasureModal(false);
+            handleNextDay();
           }}
         />
       )}

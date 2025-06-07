@@ -2,28 +2,28 @@
 
 import Image from 'next/image';
 
-export default function HoboCampMenu({ onStreetsClick }) {
+export default function HoboCampMenu({ onStreetsClick, onScrapShopClick, onTreasureShopClick }) {
   const areas = [
     {
       id: 'sell-scrap',
       label: 'Scrappy Joes',
       image: '/images/areas/scrapyard.png',
       icon: '🔥',
-      onClick: () => console.log('Sell Scrap'),
+      onClick: onScrapShopClick,
     },
     {
       id: 'trade-items',
       label: 'Trash for Treasure',
       image: '/images/areas/junktrader.png',
       icon: '💰',
-      onClick: () => console.log('Trade Items'),
+      onClick: onTreasureShopClick,
     },
     {
       id: 'streets',
       label: 'Hit the Streets',
       image: '/images/areas/streets.png',
       icon: '🚶',
-      onClick: onStreetsClick, // ✅ Fungerer nå
+      onClick: onStreetsClick,
     },
     {
       id: 'camp',

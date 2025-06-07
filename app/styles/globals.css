@@ -24,3 +24,17 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* GLOBAL SCROLLBAR STYLING */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f1f1f; /* zinc-800 */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #f97316; /* orange-400 */
+  border-radius: 10px;
+  border: 2px solid #1f1f1f; /* optional padding effect */
+}

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaTimes } from 'react-icons/fa';
 import allItems from '../../data/items';
-import { addItemToInventory } from '../../data/playerInventory'; // ✅ riktig import
+import { addItemToInventory } from '../../data/playerInventory';
 import LoadingScreen from '../ui/LoadingScreen';
 
 export default function CheatModal({ onClose }) {
@@ -15,7 +15,12 @@ export default function CheatModal({ onClose }) {
   const [itemId, setItemId] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // ✅ Lukk modal ved klikk utenfor eller Escape
+  const flatItems = [
+    ...allItems.equipment,
+    ...allItems.consumables,
+    ...allItems.junk,
+  ];
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) onClose();
@@ -31,22 +36,19 @@ export default function CheatModal({ onClose }) {
     };
   }, [onClose]);
 
-  // ✅ Legg til stats (brukes til penger, junk osv.)
   const updateStat = (key, change) => {
     const current = parseInt(localStorage.getItem(key) || '0');
     localStorage.setItem(key, current + change);
-    window.dispatchEvent(new Event('playerStatsChanged')); // 👈 Trigg oppdatering i UI
+    window.dispatchEvent(new Event('playerStatsChanged'));
   };
 
-  // ✅ Endre dag (pluss/minus)
   const changeDay = (amount) => {
     const current = parseInt(localStorage.getItem('playerDay') || '1');
     const updated = Math.max(1, current + amount);
     localStorage.setItem('playerDay', updated);
-    window.dispatchEvent(new Event('playerStatsChanged')); // 👈 Trigg oppdatering
+    window.dispatchEvent(new Event('playerStatsChanged'));
   };
 
-  // ✅ Tilbakestill spillet (brukes ved restart)
   const restartGame = () => {
     setLoading(true);
     setTimeout(() => {
@@ -63,7 +65,7 @@ export default function CheatModal({ onClose }) {
       const starterItems = [
         { id: 'weapon_01', quantity: 1 },
         { id: 'consumable_07', quantity: 1 },
-        { id: 'consumable_01', quantity: 1 }
+        { id: 'consumable_01', quantity: 1 },
       ];
       localStorage.setItem('playerInventory', JSON.stringify(starterItems));
 
@@ -71,10 +73,9 @@ export default function CheatModal({ onClose }) {
     }, 2000);
   };
 
-  // ✅ Riktig måte å legge til item på – bruker systemet ditt!
   const spawnItem = () => {
     if (!itemId) return;
-    addItemToInventory(itemId, amount); // 👈 ENKEL OG RIKTIG
+    addItemToInventory(itemId, amount);
   };
 
   return (
@@ -91,12 +92,10 @@ export default function CheatModal({ onClose }) {
           </div>
 
           <div className="space-y-4 text-sm">
-            {/* 🔁 Restart */}
             <button onClick={restartGame} className="w-full px-3 py-2 font-semibold text-white bg-red-600 rounded hover:bg-red-500">
               🧨 Restart Game
             </button>
 
-            {/* 💰 Money */}
             <div>
               <p className="font-semibold text-orange-200">💰 Add Money</p>
               <div className="flex gap-2 mt-1">
@@ -108,7 +107,6 @@ export default function CheatModal({ onClose }) {
               </div>
             </div>
 
-            {/* 🛠 Junk */}
             <div>
               <p className="font-semibold text-orange-200">🛠 Add Junk</p>
               <div className="flex gap-2 mt-1">
@@ -120,7 +118,6 @@ export default function CheatModal({ onClose }) {
               </div>
             </div>
 
-            {/* 📆 Day Control */}
             <div>
               <p className="font-semibold text-orange-200">📆 Day Control</p>
               <div className="flex gap-2 mt-1">
@@ -129,12 +126,11 @@ export default function CheatModal({ onClose }) {
               </div>
             </div>
 
-            {/* 📦 Spawn Item */}
             <div className="p-3 mt-2 rounded bg-zinc-800/90">
               <p className="mb-1 font-semibold text-orange-200">📦 Spawn Item</p>
               <select value={itemId} onChange={(e) => setItemId(e.target.value)} className="w-full px-2 py-1 mb-2 text-sm text-black rounded">
                 <option value="">Select item...</option>
-                {allItems.map(item => (
+                {flatItems.map(item => (
                   <option key={item.id} value={item.id}>{item.name}</option>
                 ))}
               </select>
