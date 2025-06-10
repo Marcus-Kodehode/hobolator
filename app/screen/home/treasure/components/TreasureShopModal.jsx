@@ -1,8 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import allItems, { getItemById } from '../../../../../data/items';
+import allItems from '../../../../../data/items';
 import {
   getPlayerInventory,
   addItemToInventory,
@@ -11,7 +10,7 @@ import {
 import { FaTimes } from 'react-icons/fa';
 import ShopInventory from './ShopInventory';
 import PlayerInventory from './PlayerInventory';
-import TypingText from '../../components/TypingText'; // ✅ du har denne fra før!
+import NPCHeader from '../../components/NPCHeader';
 
 export default function TreasureShopModal({ onClose }) {
   const [playerInventory, setPlayerInventory] = useState([]);
@@ -74,18 +73,12 @@ export default function TreasureShopModal({ onClose }) {
           <FaTimes />
         </button>
 
-        <div className="flex flex-col items-center mb-6">
-          <Image
-            src="/images/npc/junktrader.png"
-            alt="Maggie 'Junk Queen' Malone"
-            width={100}
-            height={100}
-            className="mb-2 border-2 border-orange-300 rounded-full"
-          />
-          <h2 className="text-lg font-bold text-orange-300">Maggie "Junk Queen" Malone</h2>
-          <TypingText text={npcIntroText} speed={35} className="max-w-xl mt-2 text-sm text-center text-zinc-300" />
-          <p className="mt-2 text-sm text-green-300">💰 You have ${playerMoney.toFixed(2)}</p>
-        </div>
+        <NPCHeader
+          imageSrc="/images/npc/junktrader.png"
+          name='Maggie "Junk Queen" Malone'
+          introText={npcIntroText}
+        />
+        <p className="mt-2 text-sm text-center text-green-300">💰 You have ${playerMoney.toFixed(2)}</p>
 
         <div className="flex flex-col gap-6 mt-6 md:flex-row">
           <ShopInventory
